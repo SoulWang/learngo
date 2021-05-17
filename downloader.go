@@ -15,5 +15,5 @@ func main() {
 	defer resp.Body.Close()
 	byte, _ := ioutil.ReadAll(resp.Body)
 	fmt.Printf("%s\n", byte)
-
+	fmt.Println("测试pull")
 }

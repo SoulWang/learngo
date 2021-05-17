@@ -1,0 +1,53 @@
+1、什么是duck typing？
+    a：像鸭子走路，像鸭子叫（长得像鸭子），那么就是鸭子【针对使用者角度】
+    b：描述事务的外部行为而非内部结构
+    c：严格说go属于结构化类型系统，类似duck typing
+    eg：
+    【1】python中的duck typing
+    def download(retriever)：
+        return retriever.get("https://www.imooc.com")
+    这里有个download函数，接收传过来的retriever，retriever是可以用来获取资源的
+    retriever.get(url)，这里的retriever就是一个duck typing的一个对象
+    ps：
+    (1)运行时才知道传入的retriever有没有get
+    (2)需要注释来说明接口
+
+    【2】c++中的duck typing
+    template <class R>
+    string download(const R& retriever){
+        return retriever.get("www.imooc.com");
+    }
+    ps：
+    (1)编译时才知道传入的retriever有没有get
+    (2)需要注释来说明接口
+
+    【3】java中的类似代码
+    <R extend Retriever>
+    String download(R r){
+        return r.get("www.imooc.com")
+    }
+    ps：
+    (1)传入的参数必须实现Retriever接口
+    (2)不是duck typing
+
+    【4】go中的duck typing
+    (1)同时需要Readable，Appendable怎么办？（apache polygene）
+    (2)同时具有python，c++的duck typing的灵活性
+    (3)又具有java的类型检查
+
+
+2、接口的定义
+download：使用者------------>retriever：实现者
+ps：接口由使用者定义；接口的实现是隐式的；只要实现接口里的方法
+
+3.接口变量里面有什么？
+接口变量包含：实现者的类型+实现者的指针/值->实现者【如图1】
+ps：
+1：接口变量自带指针
+2：接口变量同样采用值传递，几乎不需要使用接口的指针
+3：指针接收者实现只能以指针方式使用；值接收者皆可
+
+4.查看接口变量
+a：表示任何类型：interface{}
+b；Type Assertion
+c：Type Switch

@@ -2,18 +2,19 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"net/http"
+	"learngo/infra"
 )
 
-func main() {
-	resp, err := http.Get("https://www.imooc.com")
-	if err != nil {
-		panic(err)
+func getRetriever() retriever {
+	return infra.Retriever{}
+}
 
-	}
-	defer resp.Body.Close()
-	byte, _ := ioutil.ReadAll(resp.Body)
-	fmt.Printf("%s\n", byte)
-	fmt.Println("测试pull")
+//?:something that can get
+type retriever interface {
+	Get(string) string
+}
+
+func main() {
+	var r retriever = getRetriever()
+	fmt.Println(r.Get("https://www.imooc.com"))
 }

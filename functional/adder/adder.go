@@ -15,6 +15,7 @@ func adder() func(int) int {
 
 type iAdder func(int) (int, iAdder)
 
+//正统函数编程
 func adder2(base int) iAdder {
 	return func(v int) (int, iAdder) {
 		return base + v, adder2(base + v)
